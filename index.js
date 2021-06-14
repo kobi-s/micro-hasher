@@ -7,7 +7,6 @@ const {
 } = require('child_process')
 const fs = require("fs");
 const axios = require('axios')
-
 const hascatPath = "~/hashcat/hashcat-6.2.2/"
 const commands = []
 const outputDict = []
@@ -40,7 +39,7 @@ function buildExecutionCommands(options) {
     }
 
     if (options['hash-file']) {
-        setCommand(' ', ' ', 'crackme.txt')
+        setCommand(' ', '', 'crackme.txt')
     }
 
     if (options['status-time']) {
@@ -102,7 +101,7 @@ async function getS3File(bucket, key) {
         bucket: bucket,
         key: key
     }).then((result) => {
-        fs.writeFile('/home/ubuntu/hashcat/hashcat/hashcat-6.2.2/crackme.txt', result.data, {
+        fs.writeFile('~/hashcat/hashcat-6.2.2/crackme.txt', result.data, {
             encoding: 'ascii'
         }, (err, data) => {
             if (err) {
@@ -139,7 +138,9 @@ async function run(options) {
 
         await getS3File(data['hash-file-bucket'], data['hash-file-key'])
             .then(() => {
-                var hashcatCommands = buildExecutionCommands(options)
+                let hashcatCommands = buildExecutionCommands(options)
+
+                console.log(hashcatCommands);
 
                 let child = spawn(hascatPath + 'hashcat.bin', hashcatCommands, {
                     shell: true
@@ -169,9 +170,9 @@ async function run(options) {
 }
 
 
-setTimeout(async () => {
-    await run(data)
-}, 1000)
+// setTimeout(async () => {
+//     await run(data)
+// }, 1000)
 
 app.listen(PORT, () => {
     console.log("Start listener on port " + PORT)
