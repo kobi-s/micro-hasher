@@ -101,12 +101,13 @@ async function getS3File(bucket, key) {
         bucket: bucket,
         key: key
     }).then((result) => {
-        fs.writeFile('~/hashcat/hashcat-6.2.2/crackme.txt', result.data, {
+        fs.writeFile(hascatPath + 'crackme.txt', result.data, {
             encoding: 'ascii'
         }, (err, data) => {
             if (err) {
                 console.log(err);
             }
+            console.log('crackme.txt is defined');
             console.log(data);
         })
     }).catch(err => {
@@ -141,7 +142,7 @@ async function run(options) {
                 let hashcatCommands = buildExecutionCommands(options)
 
                 console.log(hashcatCommands);
-
+                
                 let child = spawn(hascatPath + 'hashcat.bin', hashcatCommands, {
                     shell: true
                 })
