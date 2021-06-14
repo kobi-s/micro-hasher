@@ -39,7 +39,7 @@ function buildExecutionCommands(options) {
     }
 
     if (options['hash-file']) {
-        setCommand(' ', '', 'crackme.txt')
+        setCommand(' ', '', '~/micro-hashcat/crackme.txt')
     }
 
     if (options['status-time']) {
@@ -96,24 +96,24 @@ app.get("/status", (req, res) => {
     return res.send([])
 })
 
-async function getS3File(bucket, key) {
-    return axios.post(CONTROL_SERVER_PATH + '/get-file', {
-        bucket: bucket,
-        key: key
-    }).then((result) => {
-        fs.writeFile('./crackme.txt', result.data, {
-            encoding: 'ascii'
-        }, (err, data) => {
-            if (err) {
-                console.log(err);
-            }
-            console.log('crackme.txt is defined');
-            console.log(data);
-        })
-    }).catch(err => {
-        console.log(err);
-    })
-}
+// async function getS3File(bucket, key) {
+//     return axios.post(CONTROL_SERVER_PATH + '/get-file', {
+//         bucket: bucket,
+//         key: key
+//     }).then((result) => {
+//         fs.writeFile('./crackme.txt', result.data, {
+//             encoding: 'ascii'
+//         }, (err, data) => {
+//             if (err) {
+//                 console.log(err);
+//             }
+//             console.log('crackme.txt is defined');
+//             console.log(data);
+//         })
+//     }).catch(err => {
+//         console.log(err);
+//     })
+// }
 
 
 function sendStdoutData(stdout) {
