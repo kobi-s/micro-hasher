@@ -40,7 +40,7 @@ function buildExecutionCommands(options) {
     }
 
     if (options['hash-file']) {
-        setCommand(' ', ' ', '~/micro-hashcat/crackme.txt')
+        setCommand(' ', ' ', 'crackme.txt')
     }
 
     if (options['status-time']) {
@@ -102,7 +102,7 @@ async function getS3File(bucket, key) {
         bucket: bucket,
         key: key
     }).then((result) => {
-        fs.writeFile('crackme.txt', result.data, {
+        fs.writeFile('/home/ubuntu/hashcat/hashcat/hashcat-6.2.2/crackme.txt', result.data, {
             encoding: 'ascii'
         }, (err, data) => {
             if (err) {
