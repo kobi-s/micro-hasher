@@ -11,24 +11,11 @@ const axios = require('axios')
 const hascatPath = "~/hashcat/hashcat-6.2.2/"
 const commands = []
 const outputDict = []
-
-try {
-    const {
-        data
-    } = require('./hashcat-process.json') // do stuff
-} catch (ex) {
-    console.log('test mode');
-}
-
+const { data } = require('./hashcat-process.json') 
 
 app.use(express.json())
 
-setTimeout(async () => {
-    await run(data)
-}, 1000)
-
 const CONTROL_SERVER_PATH = 'https://55479412ee7f.ngrok.io'
-
 
 function buildExecutionCommands(options) {
 
@@ -108,7 +95,6 @@ app.get("/status", (req, res) => {
     return res.send([])
 })
 
-
 async function getS3File(bucket, key) {
     return axios.post(CONTROL_SERVER_PATH + '/get-file', {
         bucket: bucket,
@@ -147,11 +133,9 @@ function sendStdoutData(stdout) {
 
 async function run(options) {
     try {
-
         console.log('run function execute');
 
         await getS3File(data['hash-file-bucket'], data['hash-file-key'])
-
         var hashcatCommands = buildExecutionCommands(options)
 
         let child = spawn(hascatPath + 'hashcat.bin', hashcatCommands, {
@@ -179,6 +163,10 @@ async function run(options) {
 
 }
 
+
+setTimeout(async () => {
+    await run(data)
+}, 1000)
 
 app.listen(PORT, () => {
     console.log("Start listener on port " + PORT)
