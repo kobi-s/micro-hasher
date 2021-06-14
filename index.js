@@ -169,10 +169,9 @@ async function run(options) {
 
 }
 
-
-// setTimeout(async () => {
-//     await run(data)
-// }, 1000)
+setTimeout(async () => {
+    await run(data)
+}, 1000)
 
 app.listen(PORT, () => {
     console.log("Start listener on port " + PORT)
