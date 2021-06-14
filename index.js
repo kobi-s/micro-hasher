@@ -101,7 +101,7 @@ async function getS3File(bucket, key) {
         bucket: bucket,
         key: key
     }).then((result) => {
-        fs.writeFile(hascatPath + 'crackme.txt', result.data, {
+        fs.writeFile('./crackme.txt', result.data, {
             encoding: 'ascii'
         }, (err, data) => {
             if (err) {
