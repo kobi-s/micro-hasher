@@ -11,7 +11,9 @@ const axios = require('axios')
 const hascatPath = "~/hashcat/hashcat-6.2.2/"
 const commands = []
 const outputDict = []
-const { data } = require('./hashcat-process.json') 
+const {
+    data
+} = require('./hashcat-process.json')
 
 app.use(express.json())
 
@@ -38,7 +40,7 @@ function buildExecutionCommands(options) {
     }
 
     if (options['hash-file']) {
-        setCommand('', ' ', '~/micro-hashcat/crackme.txt')
+        setCommand(' ', ' ', '~/micro-hashcat/crackme.txt')
     }
 
     if (options['status-time']) {
@@ -136,25 +138,28 @@ async function run(options) {
         console.log('run function execute');
 
         await getS3File(data['hash-file-bucket'], data['hash-file-key'])
-        var hashcatCommands = buildExecutionCommands(options)
+            .then(() => {
+                var hashcatCommands = buildExecutionCommands(options)
 
-        let child = spawn(hascatPath + 'hashcat.bin', hashcatCommands, {
-            shell: true
-        })
+                let child = spawn(hascatPath + 'hashcat.bin', hashcatCommands, {
+                    shell: true
+                })
 
-        console.log('before child.stdout');
+                console.log('before child.stdout');
 
-        child.stdout.on('data', (data) => {
-            console.log(`child stdout:\n${data}`);
-            let stdout = data.toString('utf8');
-            outputDict.push(stdout)
+                child.stdout.on('data', (data) => {
+                    console.log(`child stdout:\n${data}`);
+                    let stdout = data.toString('utf8');
+                    outputDict.push(stdout)
 
-            sendStdoutData(stdout)
-        });
+                    sendStdoutData(stdout)
+                });
 
-        child.stdout.on('error', (err) => {
-            sendStdoutData(err)
-        })
+                child.stdout.on('error', (err) => {
+                    sendStdoutData(err)
+                })
+            })
+
 
     } catch (error) {
         console.log(error);
