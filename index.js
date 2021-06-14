@@ -5,15 +5,27 @@ const flags = require('./config/hashcatFlags.json')
 const {
     spawn
 } = require('child_process')
+const fs = require("fs");
+const axios = require('axios')
+
 const hascatPath = "~/hashcat/hashcat-6.2.2/"
 const commands = []
 const outputDict = []
-const axios = require('axios')
-// const {
-//     data
-// } = require('./hashcat-process.json')
+
+try {
+    const {
+        data
+    } = require('./hashcat-process.json') // do stuff
+} catch (ex) {
+    console.log('test mode');
+}
+
 
 app.use(express.json())
+
+setTimeout(async () => {
+    await run(data)
+}, 1000)
 
 const CONTROL_SERVER_PATH = 'https://55479412ee7f.ngrok.io'
 
@@ -39,7 +51,7 @@ function buildExecutionCommands(options) {
     }
 
     if (options['hash-file']) {
-        setCommand('', ' ', hascatPath + options['hash-file'])
+        setCommand('', ' ', '~/micro-hashcat/crackme.txt')
     }
 
     if (options['status-time']) {
@@ -97,27 +109,23 @@ app.get("/status", (req, res) => {
 })
 
 
-// setTimeout(() => {
-//     run(data)
-// }, 1000)
-
-
-async function getS3File(region, bucket, key) {
+async function getS3File(bucket, key) {
     return axios.post(CONTROL_SERVER_PATH + '/get-file', {
-        region: region,
         bucket: bucket,
         key: key
+    }).then((result) => {
+        fs.writeFile('crackme.txt', result.data, {
+            encoding: 'ascii'
+        }, (err, data) => {
+            if (err) {
+                console.log(err);
+            }
+            console.log(data);
+        })
+    }).catch(err => {
+        console.log(err);
     })
 }
-
-
-getS3File("us-west-2", "hasher-hashes-01", "1623683992807")
-    .then(result => {
-        console.log(result);
-    }).catch(err => {
-        err
-    })
-
 
 
 function sendStdoutData(stdout) {
@@ -137,12 +145,15 @@ function sendStdoutData(stdout) {
 }
 
 
-function run(options) {
+async function run(options) {
     try {
 
         console.log('run function execute');
 
+        await getS3File(data['hash-file-bucket'], data['hash-file-key'])
+
         var hashcatCommands = buildExecutionCommands(options)
+
         let child = spawn(hascatPath + 'hashcat.bin', hashcatCommands, {
             shell: true
         })
@@ -168,8 +179,6 @@ function run(options) {
 
 }
 
-
-// run()
 
 app.listen(PORT, () => {
     console.log("Start listener on port " + PORT)
