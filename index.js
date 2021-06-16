@@ -19,8 +19,8 @@ const logger = createLogger({
   })
 
 const hascatPath = "~/hashcat/hashcat-6.2.2/"
-const commands = []
-const outputDict = []
+let commands = []
+let outputDict = []
 const {
     data
 } = require('./hashcat-process.json')
@@ -35,6 +35,7 @@ const CONTROL_SERVER_PATH = 'https://5a820605ac4b.ngrok.io'
 function buildExecutionCommands(options) {
 
     console.log('build hashcat command...');
+    commands = []
 
     if (options["hash-type"]) {
         setCommand(flags["hash-type"], '=', options["hash-type"])
@@ -162,7 +163,8 @@ function run(options) {
         let child = spawn(hascatPath + 'hashcat.bin', hashcatCommands, {
             shell: true
         })
-       
+
+        outputDict = []
 
         child.stdout.on('data', (data) => {
             console.log(`child stdout:\n${data}`);
