@@ -190,6 +190,7 @@ function run(options) {
         logger.error('error with with runinng this process')
         logger.error(error)
 
+        endStdoutData(error)
         res.send(error)
     }
 
