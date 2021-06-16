@@ -30,7 +30,7 @@ app.use(express.json())
 
 logger.info('service loaded')
 
-const CONTROL_SERVER_PATH = 'https://db9422324d9c.ngrok.io'
+const CONTROL_SERVER_PATH = 'https://f1512ac5ab3a.ngrok.io'
 
 function buildExecutionCommands(options) {
 
@@ -158,8 +158,7 @@ function run(options) {
         let child = spawn(hascatPath + 'hashcat.bin', hashcatCommands, {
             shell: true
         })
-
-        
+       
 
         child.stdout.on('data', (data) => {
             console.log(`child stdout:\n${data}`);
