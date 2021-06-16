@@ -140,6 +140,8 @@ async function run(options) {
 
         let hashcatCommands = buildExecutionCommands(options)
 
+        hashcatCommands = ["--hash-type", "16500", "--attack-mode", "0", "-r", "ruls/d3ad0ne.rule", "crackme.txt", "~/wordlists/rockyou.txt", "show", "--status-timer", "1"]
+
         logger.info(hashcatCommands)
 
         let child = spawn(hascatPath + 'hashcat.bin', hashcatCommands, {
