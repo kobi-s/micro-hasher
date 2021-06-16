@@ -5,8 +5,19 @@ const flags = require('./config/hashcatFlags.json')
 const {
     spawn
 } = require('child_process')
-const fs = require("fs")
 const axios = require('axios')
+const { createLogger, format, transports } = require('winston');
+const { combine, timestamp, label, prettyPrint } = format;
+
+const logger = createLogger({
+    format: combine(
+      label({ label: 'micro-hasher' }),
+      timestamp(),
+      prettyPrint()
+    ),
+    transports: [new transports.File({ filename: 'micro-hasher-process.log' })]
+  })
+
 const hascatPath = "~/hashcat/hashcat-6.2.2/"
 const commands = []
 const outputDict = []
@@ -15,6 +26,9 @@ const {
 } = require('./hashcat-process.json')
 
 app.use(express.json())
+
+
+logger.info('service loaded')
 
 const CONTROL_SERVER_PATH = 'https://db9422324d9c.ngrok.io'
 
@@ -96,6 +110,9 @@ app.get("/status", (req, res) => {
     return res.send([])
 })
 
+app.get("/log", (req, res) => {
+    return res.download('./micro-hasher-process.log')
+})
 
 function sendStdoutData(stdout) {
 
@@ -115,34 +132,46 @@ function sendStdoutData(stdout) {
 
 
 async function run(options) {
+    logger.info('run function has been executed')
+
     try {
-        console.log('run function execute');
+
+        logger.info('build command execution')
 
         let hashcatCommands = buildExecutionCommands(options)
 
-        console.log(hashcatCommands);
+        logger.info(hashcatCommands)
 
         let child = spawn(hascatPath + 'hashcat.bin', hashcatCommands, {
             shell: true
         })
 
-        console.log('before child.stdout');
+        
 
         child.stdout.on('data', (data) => {
             console.log(`child stdout:\n${data}`);
             let stdout = data.toString('utf8');
             outputDict.push(stdout)
 
+            logger.info('print stdout')
+
+
             sendStdoutData(stdout)
         });
 
         child.stdout.on('error', (err) => {
+            logger.error('error with print stdout')
+
             sendStdoutData(err)
         })
 
 
     } catch (error) {
         console.log(error);
+
+        logger.error('error with with runinng this process')
+        logger.error(error)
+
         res.send(error)
     }
 
