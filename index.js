@@ -5,7 +5,7 @@ const flags = require('./config/hashcatFlags.json')
 const {
     spawn
 } = require('child_process')
-const fs = require("fs");
+const fs = require("fs")
 const axios = require('axios')
 const hascatPath = "~/hashcat/hashcat-6.2.2/"
 const commands = []
@@ -16,7 +16,7 @@ const {
 
 app.use(express.json())
 
-const CONTROL_SERVER_PATH = 'https://55479412ee7f.ngrok.io'
+const CONTROL_SERVER_PATH = 'http://db9422324d9c.ngrok.io'
 
 function buildExecutionCommands(options) {
 
