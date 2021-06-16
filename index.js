@@ -111,7 +111,18 @@ app.get("/status", (req, res) => {
 })
 
 app.get("/log", (req, res) => {
-    return res.download('./micro-hasher-process.log')
+    return res.download(__dirname + '/micro-hasher-process.log')
+})
+
+
+app.post('/run', (req, res) => {
+    
+    const options = req.body
+    
+    run(options)
+
+    res.send(true)
+
 })
 
 function sendStdoutData(stdout) {
@@ -179,9 +190,9 @@ function run(options) {
 
 }
 
-setTimeout(async () => {
-    run(data)
-}, 1000)
+// setTimeout(async () => {
+//     run(data)
+// }, 1000)
 
 app.listen(PORT, () => {
     console.log("Start listener on port " + PORT)
