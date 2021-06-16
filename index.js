@@ -53,7 +53,11 @@ function buildExecutionCommands(options) {
     }
 
     if (options['hash-file']) {
-        setCommand(' ', '', '~/micro-hashcat/crackme.txt')
+        setCommand('~/micro-hashcat/crackme.txt', null, null)
+    }
+
+    if (options['hash']) {
+        setCommand(options["hash"], null, null)
     }
 
     if (options['status-time']) {
@@ -61,7 +65,7 @@ function buildExecutionCommands(options) {
     }
 
     if (options.wordlist) {
-        setCommand(' ', '', options.wordlist)
+        setCommand(options.wordlis, null, null)
     }
 
     if (options["outfile"]) {
