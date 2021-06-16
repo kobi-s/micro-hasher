@@ -131,7 +131,7 @@ function sendStdoutData(stdout) {
 }
 
 
-async function run(options) {
+function run(options) {
     logger.info('run function has been executed')
 
     try {
@@ -180,7 +180,7 @@ async function run(options) {
 }
 
 setTimeout(async () => {
-    await run(data)
+    run(data)
 }, 1000)
 
 app.listen(PORT, () => {
