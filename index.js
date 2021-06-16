@@ -151,7 +151,7 @@ function run(options) {
 
         let hashcatCommands = buildExecutionCommands(options)
 
-        hashcatCommands = ["--hash-type", "16500", "--attack-mode", "0", "-r", "rules/d3ad0ne.rule", "/home/ubuntu/micro-hasher/crackme.txt", "~/wordlists/rockyou.txt"]
+        // hashcatCommands = ["--hash-type", "16500", "--attack-mode", "0", "-r", "rules/d3ad0ne.rule", "/home/ubuntu/micro-hasher/crackme.txt", "~/wordlists/rockyou.txt"]
 
         logger.info(hashcatCommands)
 
