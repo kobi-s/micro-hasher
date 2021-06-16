@@ -16,7 +16,7 @@ const {
 
 app.use(express.json())
 
-const CONTROL_SERVER_PATH = 'http://db9422324d9c.ngrok.io'
+const CONTROL_SERVER_PATH = 'https://db9422324d9c.ngrok.io'
 
 function buildExecutionCommands(options) {
 
@@ -96,25 +96,6 @@ app.get("/status", (req, res) => {
     return res.send([])
 })
 
-// async function getS3File(bucket, key) {
-//     return axios.post(CONTROL_SERVER_PATH + '/get-file', {
-//         bucket: bucket,
-//         key: key
-//     }).then((result) => {
-//         fs.writeFile('./crackme.txt', result.data, {
-//             encoding: 'ascii'
-//         }, (err, data) => {
-//             if (err) {
-//                 console.log(err);
-//             }
-//             console.log('crackme.txt is defined');
-//             console.log(data);
-//         })
-//     }).catch(err => {
-//         console.log(err);
-//     })
-// }
-
 
 function sendStdoutData(stdout) {
 
@@ -122,8 +103,8 @@ function sendStdoutData(stdout) {
 
     // console.log({data: stdout});
     return axios.post(CONTROL_SERVER_PATH + '/hook', {
-            data: stdout
-        })
+        data: stdout
+    })
         .then(() => {
             console.log('ok');
         })
@@ -137,30 +118,27 @@ async function run(options) {
     try {
         console.log('run function execute');
 
-        await getS3File(data['hash-file-bucket'], data['hash-file-key'])
-            .then(() => {
-                let hashcatCommands = buildExecutionCommands(options)
+        let hashcatCommands = buildExecutionCommands(options)
 
-                console.log(hashcatCommands);
-                
-                let child = spawn(hascatPath + 'hashcat.bin', hashcatCommands, {
-                    shell: true
-                })
+        console.log(hashcatCommands);
 
-                console.log('before child.stdout');
+        let child = spawn(hascatPath + 'hashcat.bin', hashcatCommands, {
+            shell: true
+        })
 
-                child.stdout.on('data', (data) => {
-                    console.log(`child stdout:\n${data}`);
-                    let stdout = data.toString('utf8');
-                    outputDict.push(stdout)
+        console.log('before child.stdout');
 
-                    sendStdoutData(stdout)
-                });
+        child.stdout.on('data', (data) => {
+            console.log(`child stdout:\n${data}`);
+            let stdout = data.toString('utf8');
+            outputDict.push(stdout)
 
-                child.stdout.on('error', (err) => {
-                    sendStdoutData(err)
-                })
-            })
+            sendStdoutData(stdout)
+        });
+
+        child.stdout.on('error', (err) => {
+            sendStdoutData(err)
+        })
 
 
     } catch (error) {
