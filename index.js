@@ -42,7 +42,7 @@ function buildExecutionCommands(options) {
     }
 
     if (options['hash-file']) {
-        setCommand('~/micro-hashcat/crackme.txt', null, null)
+        setCommand('~/micro-hasher/crackme.txt', null, null)
     }
 
     if (options['hash']) {
