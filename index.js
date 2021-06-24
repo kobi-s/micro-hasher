@@ -38,7 +38,7 @@ function buildExecutionCommands(options) {
     }
 
     if (options['rule']) {
-        setCommand(flags["rules-file"], '=', hascatPath + "rules/" + options["rules-file"])
+        setCommand(flags["rules-file"], '=', hascatPath + "rules/" + options["rule"])
     }
 
     if (options['hash-file']) {
