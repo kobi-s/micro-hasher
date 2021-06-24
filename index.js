@@ -8,8 +8,8 @@ const {
 const axios = require('axios')
 const log = require('simple-node-logger').createSimpleFileLogger('micro-hasher-process.log');
 const hascatPath = "~/hashcat/hashcat-6.2.2/"
-const commands = []
-const outputDict = []
+let commands = []
+let outputDict = []
 const {
     data
 } = require('./hashcat-process.json')
@@ -19,11 +19,12 @@ app.use(express.json())
 
 log.info('service loaded')
 
-const CONTROL_SERVER_PATH = 'https://f1512ac5ab3a.ngrok.io'
+const CONTROL_SERVER_PATH = 'https://5a820605ac4b.ngrok.io'
 
 function buildExecutionCommands(options) {
 
     console.log('build hashcat command...');
+    commands = []
 
     if (options["hash-type"]) {
         setCommand(flags["hash-type"], '=', options["hash-type"])
@@ -42,7 +43,11 @@ function buildExecutionCommands(options) {
     }
 
     if (options['hash-file']) {
-        setCommand(' ', '', '~/micro-hashcat/crackme.txt')
+        setCommand('~/micro-hashcat/crackme.txt', null, null)
+    }
+
+    if (options['hash']) {
+        setCommand(options["hash"], null, null)
     }
 
     if (options['status-time']) {
@@ -50,7 +55,7 @@ function buildExecutionCommands(options) {
     }
 
     if (options.wordlist) {
-        setCommand(' ', '', options.wordlist)
+        setCommand(options.wordlis, null, null)
     }
 
     if (options["outfile"]) {
@@ -147,7 +152,8 @@ function run(options) {
         let child = spawn(hascatPath + 'hashcat.bin', hashcatCommands, {
             shell: true
         })
-       
+
+        outputDict = []
 
         child.stdout.on('data', (data) => {
             console.log(`child stdout:\n${data}`);
@@ -173,6 +179,7 @@ function run(options) {
         log.info('error with with runinng this process')
         log.info(error)
 
+        endStdoutData(error)
         res.send(error)
     }
 
