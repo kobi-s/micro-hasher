@@ -37,7 +37,7 @@ function buildExecutionCommands(options) {
         setCommand(flags["status-json"], null, null)
     }
 
-    if (options['rules-file']) {
+    if (options['rule']) {
         setCommand(flags["rules-file"], '=', hascatPath + "rules/" + options["rules-file"])
     }
 
@@ -53,8 +53,8 @@ function buildExecutionCommands(options) {
         setCommand(flags["status-timer"], '=', options["status-timer"])
     }
 
-    if (options.wordlist) {
-        setCommand(options.wordlis, null, null)
+    if (options['wordlist']) {
+        setCommand(options.wordlist, null, null)
     }
 
     if (options["outfile"]) {
