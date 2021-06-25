@@ -18,7 +18,7 @@ app.use(express.json())
 
 log.info('service loaded')
 
-const CONTROL_SERVER_PATH = 'https://140888046a8d.ngrok.io'
+const CONTROL_SERVER_PATH = 'https://7910e70a7f70.ngrok.io'
 
 function buildExecutionCommands(options) {
 
@@ -191,6 +191,8 @@ setTimeout(async () => {
     log.info("Start from 'setTimeout' function")
 
     run(data)
+
+
 }, 2000)
 
 app.listen(PORT, () => {
