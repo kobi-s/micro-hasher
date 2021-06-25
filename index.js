@@ -144,11 +144,9 @@ function run(options) {
 
         let hashcatCommands = buildExecutionCommands(options)
 
-        // hashcatCommands = ["--hash-type", "16500", "--attack-mode", "0", "-r", "rules/d3ad0ne.rule", "/home/ubuntu/micro-hasher/crackme.txt", "~/wordlists/rockyou.txt"]
-
         log.info(hashcatCommands)
 
-        let child = spawn(hascatPath + 'hashcat.bin', hashcatCommands, {
+        let child = spawn('sudo -u ubuntu ' + hascatPath + 'hashcat.bin', hashcatCommands, {
             shell: true
         })
 
