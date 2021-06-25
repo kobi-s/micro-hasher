@@ -133,7 +133,6 @@ function sendStdoutData(stdout) {
 
     console.log('send hashcat stdout...');
 
-    // console.log({data: stdout});
     return axios.post(CONTROL_SERVER_PATH + '/hook', {
         data: stdout,
     },{
