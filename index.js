@@ -61,9 +61,9 @@ function buildExecutionCommands(options) {
         setCommand(flags["outfile"], '=', options["outfile"])
     }
 
-    if (options["show"]) {
-        setCommand(flags["show"], null, null)
-    }
+    // if (options["show"]) {
+    //     setCommand(flags["show"], null, null)
+    // }
 
     if (options["username"]) {
         setCommand(flags["username"], null, null)
