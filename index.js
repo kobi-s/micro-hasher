@@ -19,12 +19,10 @@ app.use(express.json())
 log.info('service loaded')
 
 const headers = {
-    Camp: process.env.CAMPAIGN || 'DEV'
+    Camp: data.campaign || 'DEV'
 }
 
-
-
-const CONTROL_SERVER_PATH = 'https://daf1cec8fecd.ngrok.io'
+const CONTROL_SERVER_PATH = 'https://e99e150fd852.ngrok.io'
 
 function buildExecutionCommands(options) {
 
