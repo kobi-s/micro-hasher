@@ -18,7 +18,7 @@ app.use(express.json())
 
 log.info('service loaded')
 
-const CONTROL_SERVER_PATH = 'https://7592748d0948.ngrok.io'
+const CONTROL_SERVER_PATH = 'https://cd7d507343a7.ngrok.io'
 
 function buildExecutionCommands(options) {
 
@@ -38,7 +38,7 @@ function buildExecutionCommands(options) {
     }
 
     if (options['rule']) {
-        setCommand(flags["rules-file"], '=', hascatPath + "rules/" + options["rule"])
+        setCommand('-r', ' ', hascatPath + "rules/" + options["rule"])
     }
 
     if (options['hash-file']) {
