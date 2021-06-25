@@ -18,7 +18,7 @@ app.use(express.json())
 
 log.info('service loaded')
 
-const CONTROL_SERVER_PATH = 'https://cd7d507343a7.ngrok.io'
+const CONTROL_SERVER_PATH = 'https://8c8b5c67592e.ngrok.io'
 
 function buildExecutionCommands(options) {
 
@@ -187,4 +187,5 @@ function run(options) {
 
 app.listen(PORT, () => {
     console.log("Start listener on port " + PORT)
+    log.info("Start listener on port " + PORT)
 })
