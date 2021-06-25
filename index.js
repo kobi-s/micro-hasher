@@ -18,7 +18,7 @@ app.use(express.json())
 
 log.info('service loaded')
 
-const CONTROL_SERVER_PATH = 'https://7910e70a7f70.ngrok.io'
+const CONTROL_SERVER_PATH = 'https://daf1cec8fecd.ngrok.io'
 
 function buildExecutionCommands(options) {
 
