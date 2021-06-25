@@ -136,6 +136,7 @@ function sendStdoutData(stdout) {
     // console.log({data: stdout});
     return axios.post(CONTROL_SERVER_PATH + '/hook', {
         data: stdout,
+    },{
         headers: headers
     })
         .then(() => {
