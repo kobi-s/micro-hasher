@@ -53,7 +53,7 @@ function buildExecutionCommands(options) {
         setCommand(options["hash"], null, null)
     }
 
-    if (options['status-time']) {
+    if (options['status-timer']) {
         setCommand(flags["status-timer"], '=', options["status-timer"])
     }
 
@@ -79,10 +79,6 @@ function buildExecutionCommands(options) {
 
     if (options["status"]) {
         setCommand(flags["status"], null, null)
-    }
-
-    if (options["status-timer"]) {
-        setCommand(flags["status-timer"], null, null)
     }
 
     if (options["potfile-path"]) {
