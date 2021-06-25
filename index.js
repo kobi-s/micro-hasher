@@ -81,6 +81,11 @@ function buildExecutionCommands(options) {
         setCommand(flags["status-timer"], null, null)
     }
 
+    if (options["potfile-path"]) {
+        setCommand(flags["potfile-path"], '=', options["potfile-path"])
+    }
+    
+
     return commands.filter(a => (a !== '') && (a !== ' ') && (a !== null))
 }
 
