@@ -18,6 +18,12 @@ app.use(express.json())
 
 log.info('service loaded')
 
+const headers = {
+    Camp: process.env.CAMPAIGN || 'DEV'
+}
+
+
+
 const CONTROL_SERVER_PATH = 'https://daf1cec8fecd.ngrok.io'
 
 function buildExecutionCommands(options) {
@@ -129,7 +135,8 @@ function sendStdoutData(stdout) {
 
     // console.log({data: stdout});
     return axios.post(CONTROL_SERVER_PATH + '/hook', {
-        data: stdout
+        data: stdout,
+        headers: headers
     })
         .then(() => {
             console.log('ok');
