@@ -111,6 +111,9 @@ app.get("/log", (req, res) => {
     return res.download(__dirname + '/micro-hasher-process.log')
 })
 
+app.get("/cracked.txt", (req, res) => {
+    return res.download(hascatPath + 'cracked.txt')
+})
 
 app.post('/run', (req, res) => {
     
