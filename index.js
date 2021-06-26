@@ -129,6 +129,7 @@ function sendStdoutData(stdout) {
 
     return axios.post(CONTROL_SERVER_PATH + '/hook', {
         data: stdout,
+        timestamp: Date.now()
     },{
         headers: headers
     })
