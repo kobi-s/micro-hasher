@@ -113,7 +113,7 @@ app.get("/log", (req, res) => {
 })
 
 app.get("/cracked.txt", (req, res) => {
-    return res.download(path.dirname(hascatPath + 'cracked.txt'))
+    return res.download(path.dirname('/hashcat/hashcat-6.2.2/X')  + '/cracked.txt');
 })
 
 app.post('/run', (req, res) => {
