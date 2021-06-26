@@ -22,7 +22,7 @@ const headers = {
     Camp: data.campaign || 'DEV'
 }
 
-const CONTROL_SERVER_PATH = 'https://0f212654bcef.ngrok.io'
+const CONTROL_SERVER_PATH = 'https://643b43156d02.ngrok.io'
 
 function buildExecutionCommands(options) {
 
@@ -98,7 +98,6 @@ function setCommand(flag, op, command) {
         return commands.push(command);
     }
 }
-
 
 app.get("/ping", (req, res) => {
     return res.send('pong')
