@@ -6,6 +6,7 @@ const {
     spawn
 } = require('child_process')
 const axios = require('axios')
+const path = require('path')
 const log = require('simple-node-logger').createSimpleFileLogger('micro-hasher-process.log');
 const hascatPath = "~/hashcat/hashcat-6.2.2/"
 let commands = []
@@ -112,7 +113,7 @@ app.get("/log", (req, res) => {
 })
 
 app.get("/cracked.txt", (req, res) => {
-    return res.download(hascatPath + 'cracked.txt')
+    return res.download(path.dirname(hascatPath + 'cracked.txt'))
 })
 
 app.post('/run', (req, res) => {
