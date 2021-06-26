@@ -22,7 +22,7 @@ const headers = {
     Camp: data.campaign || 'DEV'
 }
 
-const CONTROL_SERVER_PATH = 'https://fdf81a2811df.ngrok.io'
+const CONTROL_SERVER_PATH = 'https://0f212654bcef.ngrok.io'
 
 function buildExecutionCommands(options) {
 
@@ -164,8 +164,8 @@ function run(options) {
             let stdout = data.toString('utf8');
             outputDict.push(stdout)
 
+            log.info(stdout)
             log.info('print stdout')
-
 
             sendStdoutData(stdout)
         });
