@@ -194,8 +194,11 @@ setTimeout(async () => {
 
     log.info("Start from 'setTimeout' function")
 
-    run(data)
+    sendStdoutData({
+        hello: "hello"
+    })
 
+    run(data)
 
 }, 2000)
 
