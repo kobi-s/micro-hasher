@@ -193,10 +193,10 @@ function run(options) {
 setTimeout(async () => {
 
     log.info("Start from 'setTimeout' function")
-
-    sendStdoutData({
+    
+    sendStdoutData(JSON.stringify({
         hello: "hello"
-    })
+    }))
 
     run(data)
 
