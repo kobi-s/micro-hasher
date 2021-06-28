@@ -22,7 +22,7 @@ const headers = {
     Camp: data.campaign || 'DEV'
 }
 
-const CONTROL_SERVER_PATH = 'https://643b43156d02.ngrok.io'
+const CONTROL_SERVER_PATH = 'https://17af16eecfec.ngrok.io'
 
 function buildExecutionCommands(options) {
 
