@@ -22,7 +22,7 @@ const headers = {
     Camp: data.campaign || 'DEV'
 }
 
-const CONTROL_SERVER_PATH = 'https://17af16eecfec.ngrok.io'
+const CONTROL_SERVER_PATH = 'https://316b6a5fb553.ngrok.io'
 
 function buildExecutionCommands(options) {
 
@@ -96,7 +96,7 @@ function buildExecutionCommands(options) {
     if (options["potfile-path"]) {
         setCommand(flags["potfile-path"], '=', options["potfile-path"])
     }
-
+    
     return commands.filter(a => (a !== '') && (a !== ' ') && (a !== null))
 }
 
