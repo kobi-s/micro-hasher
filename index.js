@@ -77,14 +77,25 @@ function buildExecutionCommands(options) {
         setCommand(flags["status"], null, null)
     }
 
-    if (options["potfile-path"]) {
-        setCommand(flags["potfile-path"], '=', options["potfile-path"])
+    if (options["mask"] && options['attack-mode'] == '3') {
+        setCommand(options["mask"], null, null)
+    }
+
+    if (options["increment"]) {
+        setCommand(flags["increment"], null, null)
+    }
+
+    if (options["increment-min"] && options["increment"]) {
+        setCommand(flags["increment-min"], '=', options['increment-min'])
+    }
+
+    if (options["increment-max"] && options["increment"]) {
+        setCommand(flags["increment-max"], '=', options['increment-max'])
     }
 
     if (options["potfile-path"]) {
         setCommand(flags["potfile-path"], '=', options["potfile-path"])
     }
-    
 
     return commands.filter(a => (a !== '') && (a !== ' ') && (a !== null))
 }
