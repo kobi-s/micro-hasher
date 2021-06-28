@@ -65,10 +65,6 @@ function buildExecutionCommands(options) {
         setCommand(flags["outfile"], '=', options["outfile"])
     }
 
-    // if (options["show"]) {
-    //     setCommand(flags["show"], null, null)
-    // }
-
     if (options["username"]) {
         setCommand(flags["username"], null, null)
     }
@@ -79,6 +75,10 @@ function buildExecutionCommands(options) {
 
     if (options["status"]) {
         setCommand(flags["status"], null, null)
+    }
+
+    if (options["potfile-path"]) {
+        setCommand(flags["potfile-path"], '=', options["potfile-path"])
     }
 
     if (options["potfile-path"]) {
