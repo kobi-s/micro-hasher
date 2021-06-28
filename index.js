@@ -77,7 +77,7 @@ function buildExecutionCommands(options) {
         setCommand(flags["status"], null, null)
     }
 
-    if (options["mask"] && options['attack-mode'] == '3') {
+    if (options["mask"] && options['attack-mode'] == "3") {
         setCommand(options["mask"], null, null)
     }
 
