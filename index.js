@@ -19,7 +19,8 @@ app.use(express.json())
 log.info('service loaded')
 
 const headers = {
-    Camp: data.campaign || 'DEV'
+    Camp: data.campaign || 'DEV',
+    Authorization: 'bearer ' + data['token']
 }
 
 const CONTROL_SERVER_PATH = 'https://221e80fa9081.ngrok.io'
