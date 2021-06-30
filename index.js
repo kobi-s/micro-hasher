@@ -40,8 +40,10 @@ function buildExecutionCommands(options) {
         setCommand(flags["status-json"], null, null)
     }
 
-    if (options['rule']) {
-        setCommand('-r', ' ', hascatPath + "rules/" + options["rule"])
+    if (options['rules'].length > 0) {
+        options['rules'].forEach(rule => {
+            setCommand('-r', ' ', hascatPath + "rules/" + rule)
+        })
     }
 
     if (options['hash-file']) {
