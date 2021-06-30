@@ -23,8 +23,6 @@ const headers = {
     Authorization: 'bearer ' + data['token']
 }
 
-const CONTROL_SERVER_PATH = 'https://221e80fa9081.ngrok.io'
-
 function buildExecutionCommands(options) {
 
     console.log('build hashcat command...');
@@ -115,10 +113,6 @@ app.get("/ping", (req, res) => {
     return res.send('pong')
 })
 
-app.get("/status", (req, res) => {
-    return res.send([])
-})
-
 app.get("/log", (req, res) => {
     return res.download(__dirname + '/micro-hasher-process.log')
 })
@@ -127,21 +121,21 @@ app.get("/cracked.txt", (req, res) => {
     return res.download(__dirname + '/cracked.txt')
 })
 
-app.post('/run', (req, res) => {
+// app.post('/run', (req, res) => {
     
-    const options = req.body
+//     const options = req.body
     
-    run(options)
+//     run(options)
 
-    res.send(true)
+//     res.send(true)
 
-})
+// })
 
 function sendStdoutData(stdout) {
 
     console.log('send hashcat stdout...');
 
-    return axios.post(CONTROL_SERVER_PATH + '/hook', {
+    return axios.post(data.control_server + '/hook', {
         data: stdout,
         timestamp: Date.now()
     },{
