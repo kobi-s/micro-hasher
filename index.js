@@ -40,7 +40,7 @@ function buildExecutionCommands(options) {
         setCommand(flags["status-json"], null, null)
     }
 
-    if (options['rules'].length > 0) {
+    if (options['rules'] && options['rules'].length > 0) {
         options['rules'].forEach(rule => {
             setCommand('-r', ' ', hascatPath + "rules/" + rule)
         })
