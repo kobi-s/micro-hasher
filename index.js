@@ -62,6 +62,10 @@ function buildExecutionCommands(options) {
         setCommand(options.wordlist, null, null)
     }
 
+    if (options["attack-mode"] == "1") {
+        setCommand(options['combination-wordlist'].dir, null, null)
+    }
+
     if (options["outfile"]) {
         setCommand(flags["outfile"], '=', options["outfile"])
     }
