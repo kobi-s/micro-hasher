@@ -102,11 +102,11 @@ function buildExecutionCommands(options) {
         setCommand(flags["generate-rule"], null, null)
     }
 
-    if (options["generate-rules-func-min"] && options["generate-rules-func-min"]) {
+    if (options["generate-rules-func-min"] && options["generate-rule"]) {
         setCommand(flags["generate-rules-func-min"], '=', options['generate-rules-func-min'])
     }
 
-    if (options["generate-rules-func-max"] && options["generate-rules-func-max"]) {
+    if (options["generate-rules-func-max"] && options["generate-rule"]) {
         setCommand(flags["generate-rules-func-max"], '=', options['generate-rules-func-max'])
     }
     
