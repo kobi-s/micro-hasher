@@ -97,6 +97,18 @@ function buildExecutionCommands(options) {
     if (options["potfile-path"]) {
         setCommand(flags["potfile-path"], '=', options["potfile-path"])
     }
+
+    if (options["generate-rule"]) {
+        setCommand(flags["generate-rule"], null, null)
+    }
+
+    if (options["generate-rules-func-min"] && options["generate-rules-func-min"]) {
+        setCommand(flags["generate-rules-func-min"], '=', options['generate-rules-func-min'])
+    }
+
+    if (options["generate-rules-func-max"] && options["generate-rules-func-max"]) {
+        setCommand(flags["generate-rules-func-max"], '=', options['generate-rules-func-max'])
+    }
     
     return commands.filter(a => (a !== '') && (a !== ' ') && (a !== null))
 }
@@ -134,9 +146,6 @@ app.get("/cracked.txt", (req, res) => {
 // })
 
 function sendStdoutData(stdout) {
-
-    console.log('send hashcat stdout...');
-
     return axios.post(data.control_server + '/hook', {
         data: stdout,
         timestamp: Date.now()
@@ -144,15 +153,15 @@ function sendStdoutData(stdout) {
         headers: headers
     })
         .then(() => {
-            console.log('ok');
+            log.info('send hashcat stdout by axios')
         })
         .catch(function (error) {
-            console.log(error);
+            log.info(error)
         });
 }
 
 
-function run(options) {
+function go(options) {
     log.info('run function has been executed')
 
     try {
@@ -170,7 +179,6 @@ function run(options) {
         outputDict = []
 
         child.stdout.on('data', (data) => {
-            console.log(`child stdout:\n${data}`);
             let stdout = data.toString('utf8');
             outputDict.push(stdout)
 
@@ -188,9 +196,6 @@ function run(options) {
 
 
     } catch (error) {
-        console.log(error);
-
-        log.info('error with with runinng this process')
         log.info(error)
 
         endStdoutData(error)
@@ -206,7 +211,7 @@ setTimeout(async () => {
         hello: "hello"
     }))
 
-    run(data)
+    go(data)
 
 }, 2000)
 
