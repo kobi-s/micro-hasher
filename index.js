@@ -66,6 +66,16 @@ function buildExecutionCommands(options) {
         setCommand(options['combination-wordlist'].dir, null, null)
     }
 
+    if (options["attack-mode"] == "6" && options["mask"]) {
+        setCommand(options.wordlist, null, null)
+        setCommand(options["mask"], null, null)
+    }
+
+    if (options["attack-mode"] == "7" && options["mask"]) {
+        setCommand(options["mask"], null, null)
+        setCommand(options.wordlist, null, null)
+    }
+
     if (options["outfile"]) {
         setCommand(flags["outfile"], '=', options["outfile"])
     }
