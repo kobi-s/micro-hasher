@@ -58,12 +58,12 @@ function buildExecutionCommands(options) {
         setCommand(flags["status-timer"], '=', options["status-timer"])
     }
 
-    if (options['wordlist'] && options["attack-mode"] !== "7") {
-        setCommand(options.wordlist, null, null)
-    }
-
     if (options["attack-mode"] == "1") {
         setCommand(options['combination-wordlist'].dir, null, null)
+    }
+
+    if (options['wordlist'] && options["attack-mode"] !== "7") {
+        setCommand(options.wordlist, null, null)
     }
 
     if (options["attack-mode"] == "6" && options["mask"]) {
