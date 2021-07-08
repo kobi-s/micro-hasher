@@ -58,7 +58,7 @@ function buildExecutionCommands(options) {
         setCommand(flags["status-timer"], '=', options["status-timer"])
     }
 
-    if (options['wordlist']) {
+    if (options['wordlist'] && options["attack-mode"]!== "7") {
         setCommand(options.wordlist, null, null)
     }
 
