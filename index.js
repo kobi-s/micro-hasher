@@ -19,7 +19,7 @@ app.use(express.json())
 log.info('service loaded')
 
 const headers = {
-    Camp: data.campaign,
+    Camp: data._id,
     Authorization: 'bearer ' + data['token']
 }
 
