@@ -21,6 +21,7 @@ app.use(express.json())
 log.info('service loaded')
 
 const headers = {
+    Uuid: uuid,
     Camp: data._id,
     Authorization: 'bearer ' + data['token']
 }
