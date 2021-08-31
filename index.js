@@ -21,7 +21,6 @@ app.use(express.json())
 log.info('service loaded')
 
 const headers = {
-    Uuid: uuid,
     Camp: data._id,
     Authorization: 'bearer ' + data['token']
 }
@@ -158,7 +157,7 @@ function sendStdoutData(stdout) {
         data: stdout,
         timestamp: Date.now()
     }, {
-        headers: headers
+        headers: {...headers, uuid: uuid}
     })
         .then(() => {
             log.info('send hashcat stdout by axios')
