@@ -14,6 +14,8 @@ const {
     data
 } = require('./hashcat-process.json')
 
+let uuid = null; // instance uuid initate after saying hello to main server
+
 app.use(express.json())
 
 log.info('service loaded')
@@ -123,7 +125,7 @@ function buildExecutionCommands(options) {
     if (options["generate-rules-func-max"] && options["generate-rule"]) {
         setCommand(flags["generate-rules-func-max"], '=', options['generate-rules-func-max'])
     }
-    
+
     return commands.filter(a => (a !== '') && (a !== ' ') && (a !== null))
 }
 
@@ -149,25 +151,32 @@ app.get("/cracked.txt", (req, res) => {
     return res.download(__dirname + '/cracked.txt')
 })
 
-// app.post('/run', (req, res) => {
-    
-//     const options = req.body
-    
-//     run(options)
-
-//     res.send(true)
-
-// })
 
 function sendStdoutData(stdout) {
     return axios.post(data.control_server + '/hook', {
         data: stdout,
         timestamp: Date.now()
-    },{
+    }, {
         headers: headers
     })
         .then(() => {
             log.info('send hashcat stdout by axios')
+        })
+        .catch(function (error) {
+            log.info(error)
+        });
+}
+
+async function sayHello(params) {
+    return axios.post(data.control_server + '/hook', {
+        data: params,
+        timestamp: Date.now()
+    }, {
+        headers: headers
+    })
+        .then((response) => {
+            log.info('send hello request by axios')
+            return response
         })
         .catch(function (error) {
             log.info(error)
@@ -220,10 +229,13 @@ function go(options) {
 setTimeout(async () => {
 
     log.info("Start from 'setTimeout' function")
-    
-    sendStdoutData(JSON.stringify({
+
+    const response = await sayHello(JSON.stringify({
         hello: "hello"
     }))
+
+    log.info("get uuid from server: " + uuid)
+    uuid = response.data.uuid;
 
     go(data)
 
