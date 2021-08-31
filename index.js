@@ -14,7 +14,7 @@ const {
     data
 } = require('./hashcat-process.json')
 
-let uuid = null; // instance uuid initate after saying hello to main server
+let instance_uuid = null; // instance uuid initiate after saying hello to main server
 
 app.use(express.json())
 
@@ -157,7 +157,7 @@ function sendStdoutData(stdout) {
         data: stdout,
         timestamp: Date.now()
     }, {
-        headers: {...headers, uuid: uuid}
+        headers: {...headers, instance_uuid: instance_uuid}
     })
         .then(() => {
             log.info('send hashcat stdout by axios')
@@ -234,8 +234,8 @@ setTimeout(async () => {
         hello: "hello"
     }))
 
-    log.info("get uuid from server: " + uuid)
-    uuid = response.data.uuid;
+    log.info("get uuid from server: " + instance_uuid)
+    instance_uuid = response.data.instance_uuid;
 
     go(data)
 
