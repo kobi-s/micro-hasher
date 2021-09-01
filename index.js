@@ -14,11 +14,12 @@ const {
     data
 } = require('./hashcat-process.json')
 
-let instance_uuid = null; // instance uuid initiate after saying hello to main server
-
 app.use(express.json())
 
+
 log.info('service loaded')
+
+let instance_uuid = null; // instance uuid initiate after saying hello to main server
 
 const headers = {
     Camp: data._id,
@@ -110,6 +111,14 @@ function buildExecutionCommands(options) {
         setCommand(flags["increment-max"], '=', options['increment-max'])
     }
 
+    if (options["skip"]) {
+        setCommand(flags["skip"], '=', options["skip"])
+    }
+
+    if (options["limit"]) {
+        setCommand(flags["limit"], '=', options["limit"])
+    }
+
     if (options["potfile-path"]) {
         setCommand(flags["potfile-path"], '=', options["potfile-path"])
     }
@@ -139,7 +148,7 @@ function setCommand(flag, op, command) {
     }
 }
 
-app.get("/ping", (req, res) => {
+app.use("/ping", (req, res) => {
     return res.send('pong')
 })
 
@@ -151,6 +160,22 @@ app.get("/cracked.txt", (req, res) => {
     return res.download(__dirname + '/cracked.txt')
 })
 
+
+app.post('/start', (req, res) => {
+    
+    let campigan_data = data
+    
+    if(campigan_data['attack-mode'] == 0) {
+
+        // 1. get addedd command (divided wordlist)
+
+        campigan_data['skip'] = req.body.commands.skip
+        campigan_data['limit'] = req.body.commands.limit
+
+        // 2. run hashcat
+        go(campigan_data)
+    }
+})
 
 function sendStdoutData(stdout) {
     return axios.post(data.control_server + '/hook', {
@@ -235,9 +260,10 @@ setTimeout(async () => {
     }))
 
     log.info("get uuid from server: " + instance_uuid)
+    
     instance_uuid = response.data.instance_uuid;
 
-    go(data)
+    // go(data)
 
 }, 2000)
 
