@@ -162,15 +162,22 @@ app.get("/cracked.txt", (req, res) => {
 
 
 app.post('/start', (req, res) => {
-    
+
+    log.info('start post request recived')
+
     let campigan_data = data
     
     if(campigan_data['attack-mode'] == 0) {
 
         // 1. get addedd command (divided wordlist)
 
-        campigan_data['skip'] = req.body.commands.skip
-        campigan_data['limit'] = req.body.commands.limit
+        if(req.body.commands.skip && req.body.commands.limit) {
+
+            log.info('setting new commands (limit and skip)')
+
+            campigan_data['skip'] = req.body.commands.skip
+            campigan_data['limit'] = req.body.commands.limit
+        }
 
         // 2. run hashcat
         go(campigan_data)
