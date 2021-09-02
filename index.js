@@ -270,7 +270,7 @@ setTimeout(async () => {
     
     instance_uuid = response.data.instance_uuid;
 
-    // go(data)
+    go(data)
 
 }, 2000)
 
