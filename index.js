@@ -181,6 +181,8 @@ app.post('/start', (req, res) => {
 
         // 2. run hashcat
         go(campigan_data)
+
+        return res.sendStatus(200)
     }
 })
 
