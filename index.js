@@ -124,7 +124,7 @@ function buildExecutionCommands(options) {
     }
 
     if (options["generate-rule"]) {
-        setCommand(flags["generate-rule"], null, null)
+        setCommand(flags["generate-rule"], '=', options['generate-rule'])
     }
 
     if (options["generate-rules-func-min"] && options["generate-rule"]) {
