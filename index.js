@@ -123,15 +123,15 @@ function buildExecutionCommands(options) {
         setCommand(flags["potfile-path"], '=', options["potfile-path"])
     }
 
-    if (options["generate-rule"]) {
-        setCommand(flags["generate-rule"], '=', options['generate-rule'])
+    if (options["generate-rules"]) {
+        setCommand(flags["generate-rules"], '=', options['generate-rules'])
     }
 
-    if (options["generate-rules-func-min"] && options["generate-rule"]) {
+    if (options["generate-rules-func-min"] && options["generate-rules"]) {
         setCommand(flags["generate-rules-func-min"], '=', options['generate-rules-func-min'])
     }
 
-    if (options["generate-rules-func-max"] && options["generate-rule"]) {
+    if (options["generate-rules-func-max"] && options["generate-rules"]) {
         setCommand(flags["generate-rules-func-max"], '=', options['generate-rules-func-max'])
     }
 
