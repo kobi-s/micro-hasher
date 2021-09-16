@@ -45,7 +45,7 @@ function buildExecutionCommands(options) {
 
     if (Array.isArray(options['rules'])) {
         options['rules'].forEach(rule => {
-            setCommand('-r', ' ', hascatPath + "rules/" + rule)
+            setCommand('-r', ' ', hascatPath + "rules/" + rule.filename)
         })
     }
 
