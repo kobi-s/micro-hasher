@@ -7,7 +7,7 @@ const {
 } = require('child_process')
 const axios = require('axios')
 const log = require('simple-node-logger').createSimpleFileLogger('micro-hasher-process.log');
-const hascatPath = "~/hashcat/hashcat-6.2.2/"
+const hashcatPath = "~/hashcat/hashcat-6.2.2/"
 let commands = []
 let outputDict = []
 const {
@@ -45,7 +45,7 @@ function buildExecutionCommands(options) {
 
     if (Array.isArray(options['rules'])) {
         options['rules'].forEach(rule => {
-            setCommand('-r', ' ', hascatPath + "rules/" + rule.filename)
+            setCommand('-r', ' ', hashcatPath + "rules/" + rule.filename)
         })
     }
 
@@ -66,17 +66,17 @@ function buildExecutionCommands(options) {
     }
 
     if (options['wordlist'] && options["attack-mode"] !== "7") {
-        setCommand(options.wordlist, null, null)
+        setCommand("~/wordlists/" + options.wordlist.filename, null, null)
     }
 
     if (options["attack-mode"] == "6" && options["mask"]) {
-        setCommand(options.wordlist, null, null)
+        setCommand("~/wordlists/" + options.wordlist.filename, null, null)
         setCommand(options["mask"], null, null)
     }
 
     if (options["attack-mode"] == "7" && options["mask"]) {
         setCommand(options["mask"], null, null)
-        setCommand(options.wordlist, null, null)
+        setCommand("~/wordlists/" + options.wordlist.filename, null, null)
     }
 
     if (options["outfile"]) {
@@ -229,7 +229,7 @@ function go(options) {
 
         log.info(hashcatCommands)
 
-        let child = spawn('sudo -u ubuntu ' + hascatPath + 'hashcat.bin', hashcatCommands, {
+        let child = spawn('sudo -u ubuntu ' + hashcatPath + 'hashcat.bin', hashcatCommands, {
             shell: true
         })
 
