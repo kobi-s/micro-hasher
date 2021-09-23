@@ -111,7 +111,7 @@ function buildExecutionCommands(options) {
         setCommand(flags["increment-max"], '=', options['increment-max'])
     }
 
-    if (options["skip"]) {
+    if (options["skip"] !== undefined) {
         setCommand(flags["skip"], '=', options["skip"])
     }
 
