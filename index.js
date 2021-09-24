@@ -206,7 +206,7 @@ async function sayHello(params) {
         data: params,
         timestamp: Date.now()
     }, {
-        headers: headers
+        headers: {...headers,  instance_uuid: data['instance_uuid']}
     })
         .then((response) => {
             log.info('send hello request by axios')
