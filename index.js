@@ -264,13 +264,13 @@ setTimeout(async () => {
 
     log.info("Start from 'setTimeout' function")
 
-    const response = await sayHello(JSON.stringify({
+    await sayHello(JSON.stringify({
         hello: "hello"
     }))
-
-    log.info("get uuid from server: " + instance_uuid)
     
-    instance_uuid = response.data.instance_uuid;
+    instance_uuid = data['instance_uuid'];
+    log.info("get uuid from server: " + data['instance_uuid'])
+
 
     go(data)
 
