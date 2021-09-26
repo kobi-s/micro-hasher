@@ -23,7 +23,7 @@ let instance_uuid = null; // instance uuid initiate after saying hello to main s
 
 const headers = {
     Camp: data._id,
-    Authorization: 'bearer ' + data['token']
+    Authorization: data['token']
 }
 
 function buildExecutionCommands(options) {
