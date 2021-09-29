@@ -35,7 +35,7 @@ function buildExecutionCommands(options) {
         setCommand(flags["hash-type"], '=', options["hash-type"])
     }
 
-    if (options["attack-mode"] == "0" || options["attack-mode"] == "1" || options["attack-mode"] == "3" || options["attack-mode"] == "6" || options["attack-mode"] == "7") {
+    if (options["attack-mode"] == "0" || options["attack-mode"] == "1" || options["attack-mode"] == "3" || options["attack-mode"] == "6" || options["attack-mode"] == "7" || options["attack-mode"] == "9") {
         setCommand(flags["attack-mode"], '=', options["attack-mode"])
     }
 
