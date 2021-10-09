@@ -28,8 +28,8 @@ const headers = {
 
 function buildExecutionCommands(options) {
 
-    console.log('build hashcat command...');
     commands = []
+    console.log('build hashcat command...');
 
     if (options["hash-type"]) {
         setCommand(flags["hash-type"], '=', options["hash-type"])
@@ -135,6 +135,11 @@ function buildExecutionCommands(options) {
         setCommand(flags["generate-rules-func-max"], '=', options['generate-rules-func-max'])
     }
 
+    if (options['hashcat_config']['optimized-kernel-enable']) {
+        setCommand(flags["optimized-kernel-enable"], null, null)
+    }
+
+    
     return commands.filter(a => (a !== '') && (a !== ' ') && (a !== null))
 }
 
@@ -161,30 +166,30 @@ app.get("/cracked.txt", (req, res) => {
 })
 
 
-app.post('/start', (req, res) => {
+// app.post('/start', (req, res) => {
 
-    log.info('start post request recived')
+//     log.info('start post request recived')
 
-    let campigan_data = data
+//     let campigan_data = data
     
-    if(campigan_data['attack-mode'] == 0) {
+//     if(campigan_data['attack-mode'] == 0) {
 
-        // 1. get addedd command (divided wordlist)
+//         // 1. get addedd command (divided wordlist)
 
-        if(req.body.commands.skip && req.body.commands.limit) {
+//         if(req.body.commands.skip && req.body.commands.limit) {
 
-            log.info('setting new commands (limit and skip)')
+//             log.info('setting new commands (limit and skip)')
 
-            campigan_data['skip'] = req.body.commands.skip
-            campigan_data['limit'] = req.body.commands.limit
-        }
+//             campigan_data['skip'] = req.body.commands.skip
+//             campigan_data['limit'] = req.body.commands.limit
+//         }
 
-        // 2. run hashcat
-        go(campigan_data)
+//         // 2. run hashcat
+//         go(campigan_data)
 
-        return res.sendStatus(200)
-    }
-})
+//         return res.sendStatus(200)
+//     }
+// })
 
 function sendStdoutData(stdout) {
     return axios.post(data.control_server + '/hook', {
