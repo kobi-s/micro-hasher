@@ -110,7 +110,7 @@ function buildExecutionCommands(options) {
         setCommand(flags["increment-max"], '=', options['hashcat_config']['increment-max'])
     }
 
-    if (options['hashcat_config']["skip"] !== undefined && options['hashcat_config']["skip"] == null) {
+    if (options['hashcat_config']["skip"] !== undefined && options['hashcat_config']["skip"] !== null) {
         setCommand(flags["skip"], '=', options['hashcat_config']["skip"])
     }
 
