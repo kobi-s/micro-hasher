@@ -31,20 +31,20 @@ function buildExecutionCommands(options) {
     commands = []
     console.log('build hashcat command...');
 
-    if (options["hash-type"]) {
-        setCommand(flags["hash-type"], '=', options["hash-type"])
+    if (options['hashcat_config']["hash-type"]) {
+        setCommand(flags["hash-type"], '=', options['hashcat_config']["hash-type"])
     }
 
-    if (options["attack-mode"] == "0" || options["attack-mode"] == "1" || options["attack-mode"] == "3" || options["attack-mode"] == "6" || options["attack-mode"] == "7" || options["attack-mode"] == "9") {
-        setCommand(flags["attack-mode"], '=', options["attack-mode"])
+    if (options['hashcat_config']["attack-mode"] == "0" || options['hashcat_config']["attack-mode"] == "1" || options["attack-mode"] == "3" || options["attack-mode"] == "6" || options["attack-mode"] == "7" || options["attack-mode"] == "9") {
+        setCommand(flags["attack-mode"], '=', options['hashcat_config']["attack-mode"])
     }
 
-    if (options['status-json']) {
+    if (options['hashcat_config']['status-json']) {
         setCommand(flags["status-json"], null, null)
     }
 
-    if (Array.isArray(options['rules'])) {
-        options['rules'].forEach(rule => {
+    if (Array.isArray(options['hashcat_config']['rules'])) {
+        options['hashcat_config']['rules'].forEach(rule => {
             setCommand('-r', ' ', hashcatPath + "rules/" + rule.filename)
         })
     }
@@ -53,92 +53,91 @@ function buildExecutionCommands(options) {
         setCommand('~/micro-hasher/crackthis.txt', null, null)
     }
 
-    if (options['hash']) {
-        setCommand(options["hash"], null, null)
+    // if (options['hash']) {
+    //     setCommand(options["hash"], null, null)
+    // }
+
+    if (options['hashcat_config']['status-timer']) {
+        setCommand(flags["status-timer"], '=', options['hashcat_config']["status-timer"])
     }
 
-    if (options['status-timer']) {
-        setCommand(flags["status-timer"], '=', options["status-timer"])
+    if (options['hashcat_config']["attack-mode"] == "1") {
+        setCommand(options['hashcat_config']['combination-wordlist'].dir, null, null)
     }
 
-    if (options["attack-mode"] == "1") {
-        setCommand(options['combination-wordlist'].dir, null, null)
-    }
-
-    if (options['wordlist'] && options["attack-mode"] !== "7") {
+    if (options['hashcat_config']['wordlist'] && options['hashcat_config']["attack-mode"] !== "7") {
         setCommand("~/wordlists/" + options.wordlist.filename, null, null)
     }
 
-    if (options["attack-mode"] == "6" && options["mask"]) {
+    if (options['hashcat_config']["attack-mode"] == "6" && options['hashcat_config']["mask"]) {
         setCommand("~/wordlists/" + options.wordlist.filename, null, null)
-        setCommand(options["mask"], null, null)
+        setCommand(options['hashcat_config']["mask"], null, null)
     }
 
-    if (options["attack-mode"] == "7" && options["mask"]) {
-        setCommand(options["mask"], null, null)
-        setCommand("~/wordlists/" + options.wordlist.filename, null, null)
+    if (options['hashcat_config']["attack-mode"] == "7" && options['hashcat_config']["mask"]) {
+        setCommand(options['hashcat_config']["mask"], null, null)
+        setCommand("~/wordlists/" + options['hashcat_config'].wordlist.filename, null, null)
     }
 
-    if (options["outfile"]) {
-        setCommand(flags["outfile"], '=', options["outfile"])
+    if (options['hashcat_config']["outfile"]) {
+        setCommand(flags["outfile"], '=', options['hashcat_config']["outfile"])
     }
 
-    if (options["username"]) {
+    if (options['hashcat_config']["username"]) {
         setCommand(flags["username"], null, null)
     }
 
-    if (options["force"]) {
+    if (options['hashcat_config']["force"]) {
         setCommand(flags["force"], null, null)
     }
 
-    if (options["status"]) {
+    if (options['hashcat_config']["status"]) {
         setCommand(flags["status"], null, null)
     }
 
-    if (options["mask"] && options['attack-mode'] == "3") {
-        setCommand(options["mask"], null, null)
+    if (options['hashcat_config']["mask"] && options['hashcat_config']['attack-mode'] == "3") {
+        setCommand(options['hashcat_config']["mask"], null, null)
     }
 
-    if (options["increment"]) {
+    if (options['hashcat_config']["increment"]) {
         setCommand(flags["increment"], null, null)
     }
 
-    if (options["increment-min"] && options["increment"]) {
-        setCommand(flags["increment-min"], '=', options['increment-min'])
+    if (options['hashcat_config']["increment-min"] && options['hashcat_config']["increment"]) {
+        setCommand(flags["increment-min"], '=', options['hashcat_config']['increment-min'])
     }
 
-    if (options["increment-max"] && options["increment"]) {
-        setCommand(flags["increment-max"], '=', options['increment-max'])
+    if (options['hashcat_config']["increment-max"] && options['hashcat_config']["increment"]) {
+        setCommand(flags["increment-max"], '=', options['hashcat_config']['increment-max'])
     }
 
-    if (options["skip"] !== undefined) {
-        setCommand(flags["skip"], '=', options["skip"])
+    if (options['hashcat_config']["skip"] !== undefined) {
+        setCommand(flags["skip"], '=', options['hashcat_config']["skip"])
     }
 
-    if (options["limit"]) {
-        setCommand(flags["limit"], '=', options["limit"])
+    if (options['hashcat_config']["limit"]) {
+        setCommand(flags["limit"], '=', options['hashcat_config']["limit"])
     }
 
-    if (options["potfile-path"]) {
-        setCommand(flags["potfile-path"], '=', options["potfile-path"])
+    if (options['hashcat_config']["potfile-path"]) {
+        setCommand(flags["potfile-path"], '=', options['hashcat_config']["potfile-path"])
     }
 
-    if (options["generate-rules"]) {
-        setCommand(flags["generate-rules"], '=', options['generate-rules'])
+    if (options['hashcat_config']["generate-rules"]) {
+        setCommand(flags["generate-rules"], '=', options['hashcat_config']['generate-rules'])
     }
 
-    if (options["generate-rules-func-min"] && options["generate-rules"]) {
-        setCommand(flags["generate-rules-func-min"], '=', options['generate-rules-func-min'])
+    if (options['hashcat_config']["generate-rules-func-min"] && options['hashcat_config']["generate-rules"]) {
+        setCommand(flags["generate-rules-func-min"], '=', options['hashcat_config']['generate-rules-func-min'])
     }
 
-    if (options["generate-rules-func-max"] && options["generate-rules"]) {
-        setCommand(flags["generate-rules-func-max"], '=', options['generate-rules-func-max'])
+    if (options['hashcat_config']["generate-rules-func-max"] && options['hashcat_config']["generate-rules"]) {
+        setCommand(flags["generate-rules-func-max"], '=', options['hashcat_config']['generate-rules-func-max'])
     }
 
     if (options['hashcat_config']['optimized-kernel-enable']) {
         setCommand(flags["optimized-kernel-enable"], null, null)
     }
-
     
     return commands.filter(a => (a !== '') && (a !== ' ') && (a !== null))
 }
