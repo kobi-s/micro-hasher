@@ -16,7 +16,6 @@ const {
 
 app.use(express.json())
 
-
 log.info('service loaded')
 
 let instance_uuid = null; // instance uuid initiate after saying hello to main server
@@ -66,11 +65,11 @@ function buildExecutionCommands(options) {
     }
 
     if (options['hashcat_config']['wordlist'] && options['hashcat_config']["attack-mode"] !== "7") {
-        setCommand("~/wordlists/" + options.wordlist.filename, null, null)
+        setCommand("~/wordlists/" + options['hashcat_config'].wordlist.filename, null, null)
     }
 
     if (options['hashcat_config']["attack-mode"] == "6" && options['hashcat_config']["mask"]) {
-        setCommand("~/wordlists/" + options.wordlist.filename, null, null)
+        setCommand("~/wordlists/" + options['hashcat_config'].wordlist.filename, null, null)
         setCommand(options['hashcat_config']["mask"], null, null)
     }
 
