@@ -239,7 +239,7 @@ function go(options) {
         outputDict = []
 
         child.stdout.on('data', (data) => {
-            let stdout = data.toString('utf8');
+            let stdout = data.toString('utf8').trim();
             outputDict.push(stdout)
 
             log.info(stdout)
@@ -257,9 +257,8 @@ function go(options) {
 
     } catch (error) {
         log.info(error)
-
         sendStdoutData(error)
-        res.send(error)
+        // res.send(error)
     }
 }
 
