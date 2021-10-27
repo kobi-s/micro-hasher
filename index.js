@@ -191,7 +191,7 @@ app.get("/cracked.txt", (req, res) => {
 
 function sendStdoutData(stdout) {
     return axios.post(data.control_server + '/hook', {
-        data: stdout,
+        data: stdout.toString(),
         timestamp: Date.now()
     }, {
         headers: {...headers, instance_uuid: instance_uuid}
@@ -258,7 +258,7 @@ function go(options) {
     } catch (error) {
         log.info(error)
 
-        endStdoutData(error)
+        sendStdoutData(error)
         res.send(error)
     }
 }
