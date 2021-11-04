@@ -17,6 +17,8 @@ const headers = {
     Authorization: data['token']
 }
 
+log.info('Service loaded')
+
 function buildExecutionCommands(options) {
 
     commands = []

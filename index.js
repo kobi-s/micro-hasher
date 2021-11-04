@@ -4,11 +4,7 @@ const PORT = process.env.PORT || 4444
 const log = require('./logger')
 
 app.use(express.json())
-
-log.info('Service loaded')
-
 app.use('/', require('./routes'))
-
 require('./handler')
 
 app.listen(PORT, () => {
