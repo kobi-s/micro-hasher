@@ -5,11 +5,11 @@ router.use("/ping", (req, res) => {
 })
 
 router.get("/log", (req, res) => {
-    return res.download(__dirname + '/micro-hasher-process.log')
+    return res.download(__dirname + '../micro-hasher-process.log')
 })
 
 router.get("/cracked.txt", (req, res) => {
-    return res.download(__dirname + '/cracked.txt')
+    return res.download(__dirname + '../cracked.txt')
 })
 
 module.exports = router
