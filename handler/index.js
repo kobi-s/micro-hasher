@@ -168,7 +168,7 @@ async function sayHello(params) {
         data: params,
         timestamp: Date.now()
     }, {
-        headers: { ...headers, instance_uuid: data['guid'] }
+        headers: { ...headers, instance_uuid: instance_uuid }
     })
         .then((response) => {
             log.info('Send hello request by axios')
@@ -224,11 +224,12 @@ setTimeout(async () => {
 
     log.info("Start from 'setTimeout' function")
 
+    instance_uuid = data['guid'];
+
     await sayHello(JSON.stringify({
         hello: "hello"
     }))
 
-    instance_uuid = data['guid'];
     log.info("get uuid from server: " + data['guid'])
 
     go(data)
