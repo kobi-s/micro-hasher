@@ -226,12 +226,14 @@ setTimeout(async () => {
 
     instance_uuid = data['guid'];
 
-    await sayHello(JSON.stringify({
-        hello: "hello"
-    }))
+    setTimeout(() => {
+        await sayHello(JSON.stringify({
+            hello: "hello"
+        }))
+    }, 1500)
 
     log.info("get uuid from server: " + data['guid'])
 
     go(data)
 
-}, 2000)
+}, 2500)
