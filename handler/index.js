@@ -146,19 +146,21 @@ function setCommand(flag, op, command) {
 }
 
 function sendHashcatOutpot(stdout) {
-    return axios.post(data.control_server + '/hook', {
-        data: stdout.toString(),
-        timestamp: Date.now()
-    }, {
-        headers: { ...headers, instance_uuid: instance_uuid }
-    })
-        .then(() => {
-            log.info('send hashcat stdout by axios')
+    if (stdout.toString() !== "") {
+        return axios.post(data.control_server + '/hook', {
+            data: stdout.toString(),
+            timestamp: Date.now()
+        }, {
+            headers: { ...headers, instance_uuid: instance_uuid }
         })
-        .catch((error) => {
-            console.log(error);
-            log.info(error)
-        });
+            .then(() => {
+                log.info('send hashcat stdout by axios')
+            })
+            .catch((error) => {
+                console.log(error);
+                log.info(error)
+            });
+    }
 }
 
 async function sayHello(params) {
