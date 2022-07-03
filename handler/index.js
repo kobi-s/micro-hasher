@@ -14,7 +14,8 @@ const {
 
 const headers = {
     Camp: data._id,
-    Authorization: data['token']
+    Authorization: data['token'],
+    'User-Aganet': data['settings']['authorized_user_agent'],
 }
 
 log.info('Service loaded')
