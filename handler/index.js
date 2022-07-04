@@ -176,7 +176,7 @@ async function sayHello(params) {
             log.info('Send hello request by axios')
             log.info(JSON.stringify(response))
 
-            headers['instance'] = response._id
+            headers['instance'] = '1111'
 
             return response
         })
