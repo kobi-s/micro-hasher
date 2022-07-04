@@ -12,9 +12,10 @@ const {
     data
 } = require('../hashcat-process.json')
 
-const headers = {
-    Camp: data._id,
-    Authorization: data['token'],
+let headers = {
+    camp: data._id,
+    instance: null,
+    authorization: data['token'],
     'User-Agent': data['settings']['authorized_user_agent']
 }
 
@@ -173,6 +174,10 @@ async function sayHello(params) {
     })
         .then((response) => {
             log.info('Send hello request by axios')
+            log.info(response)
+
+            headers['instance'] = response._id
+
             return response
         })
         .catch(function (error) {
