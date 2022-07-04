@@ -174,7 +174,7 @@ async function sayHello(params) {
     })
         .then((response) => {
             log.info('Send hello request by axios')
-            log.info(response)
+            log.info(JSON.stringify(response))
 
             headers['instance'] = response._id
 
