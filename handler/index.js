@@ -5,7 +5,7 @@ const log = require('../logger')
 const {
     spawn
 } = require('child_process')
-let instance_uuid = null; // instance uuid - initiate after saying hello to main server
+let instanceUuid = null; // instance uuid - initiate after saying hello to main server
 let commands = []
 let outputDict = []
 const {
@@ -153,7 +153,7 @@ function sendHashcatOutpot(stdout) {
             data: stdout.toString(),
             timestamp: Date.now()
         }, {
-            headers: { ...headers, instance_uuid: instance_uuid }
+            headers: { ...headers, 'instance-uuid': instanceUuid }
         })
             .then(() => {
                 log.info('send hashcat stdout by axios')
@@ -170,7 +170,7 @@ async function sayHello(params) {
         data: params,
         timestamp: Date.now()
     }, {
-        headers: { ...headers, instance_uuid: data['guid'] }
+        headers: { ...headers, 'instance-uuid': data['guid'] }
     })
         .then((response) => {
             log.info('Send hello request by axios')
@@ -231,7 +231,7 @@ setTimeout(async () => {
 
     log.info("Start from 'setTimeout' function")
 
-    instance_uuid = data['guid'];
+    instanceUuid = data['guid'];
 
     await sayHello(JSON.stringify({
         hello: "hello"
