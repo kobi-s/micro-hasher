@@ -166,7 +166,7 @@ function sendHashcatOutpot(stdout) {
 }
 
 async function sayHello(params) {
-    return axios.post(data.control_server + '/hook', {
+    return axios.post(data.control_server + '/hook?hello=hello', {
         data: params,
         timestamp: Date.now()
     }, {
@@ -174,7 +174,7 @@ async function sayHello(params) {
     })
         .then((response) => {
             log.info('Send hello request by axios')
-
+            log.info(response.data)
             if(response.data.instance._id !== undefined) {
                 headers['instance'] = response.data.instance._id;
             }
