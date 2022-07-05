@@ -26,8 +26,8 @@ function buildExecutionCommands(options) {
     commands = []
     console.log('build hashcat command...');
 
-    if (options['hashcat_config']["hash-type"]) {
-        setCommand(flags["hash-type"], '=', options['hashcat_config']["hash-type"])
+    if (options['hashcat_config']["hash-type"] || options['hashcat_config']["hash-type"] === 0) {
+        setCommand(flags["hash-type"], '=', options['hashcat_config']["hash-type"].toString())
     }
 
     if (options['hashcat_config']["attack-mode"] == "0" || options['hashcat_config']["attack-mode"] == "1" || options["attack-mode"] == "3" || options["attack-mode"] == "6" || options["attack-mode"] == "7" || options["attack-mode"] == "9") {
