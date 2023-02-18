@@ -190,8 +190,10 @@ async function sayHello(params) {
                 headers['instance'] = response.data.instance._id;
             }
 
-            log.info('Check if campaign object exist')
             if(response.data.campaign.fleetRequest) {
+
+                headers['instance'] = response.data.uuid;
+
                 job.skip = response.data.campaign.hashcat_config.jobs[response.data.index].skip;
                 job.limit = response.data.campaign.hashcat_config.jobs[response.data.index].limit;
             
