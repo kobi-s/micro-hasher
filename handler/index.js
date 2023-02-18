@@ -14,6 +14,7 @@ const {
 
 let headers = {
     camp: data._id,
+    indicator: null,
     instance: null,
     authorization: data['token'],
     'User-Agent': data['settings']['authorized_user_agent']
@@ -180,6 +181,10 @@ async function sayHello(params) {
         .then((response) => {
             log.info('Send hello request by axios')
             log.info(response.data)
+
+            if(response.data.index !== null) {
+                headers['indicator'] = response.data.index;
+            }
 
             if(response.data.instance && response.data.instance._id !== undefined) {
                 headers['instance'] = response.data.instance._id;
