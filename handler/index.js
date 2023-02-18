@@ -175,7 +175,8 @@ async function sayHello(params) {
         .then((response) => {
             log.info('Send hello request by axios')
             log.info(response.data)
-            if(response.data.instance._id !== undefined) {
+
+            if(response.data.instance && response.data.instance._id !== undefined) {
                 headers['instance'] = response.data.instance._id;
             }
 
