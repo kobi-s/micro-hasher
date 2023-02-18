@@ -19,6 +19,11 @@ let headers = {
     'User-Agent': data['settings']['authorized_user_agent']
 }
 
+let job = {
+    skip: 0,
+    limit: 0
+}
+
 log.info('Service loaded')
 
 function buildExecutionCommands(options) {
@@ -182,8 +187,10 @@ async function sayHello(params) {
 
             log.info('Check if campaign object exist')
             if(response.data.campaign.fleetRequest) {
-                data['hashcat_config']['skip'] = response.data.campaign.hashcat_config.jobs[response.data.index].skip;
-                data['hashcat_config']['limit'] = response.data.campaign.hashcat_config.jobs[response.data.index].limit;
+                job.skip = response.data.campaign.hashcat_config.jobs[response.data.index].skip;
+                job.limit = response.data.campaign.hashcat_config.jobs[response.data.index].limit;
+            
+                Object.assign(data, job)
             }
 
             return response
@@ -243,9 +250,11 @@ setTimeout(async () => {
     await sayHello(JSON.stringify({
         hello: "hello"
     }))
+    .then(() => {
+        go(data)
+    })
 
     log.info("get uuid from server: " + data['guid'])
 
-    go(data)
 
-}, 3000)
+}, (Math.floor(Math.random() * 5000)))
