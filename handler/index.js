@@ -166,7 +166,7 @@ function sendHashcatOutpot(stdout) {
 }
 
 async function sayHello(params) {
-    return axios.post(data.control_server + '/hook?hello=hello', {
+    return axios.post(data.control_server + '/register?hello=hello', {
         data: params,
         timestamp: Date.now()
     }, {
