@@ -179,7 +179,8 @@ async function sayHello(params) {
                 headers['instance'] = response.data.instance._id;
             }
 
-            if(response.data.campaign && response.data.campaign.fleetRequest) {
+            log.info('Check if campaign object exist')
+            if(response.data.campaign.fleetRequest) {
                 data['hashcat_config']['skip'] = response.data.campaign.hashcat_config.jobs[response.data.index].skip;
                 data['hashcat_config']['limit'] = response.data.campaign.hashcat_config.jobs[response.data.index].limit;
             }
